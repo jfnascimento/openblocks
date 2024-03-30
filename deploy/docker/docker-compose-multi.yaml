@@ -28,8 +28,8 @@ services:
     image: openblocksdev/openblocks-ce-api-service:latest
     container_name: openblocks-api-service
     # Enabled ports to be able to access backend from host
-    # ports:
-    #   - "8080:8080"
+    ports:
+      - "8082:8082"
     environment:
       PUID: "9001"
       PGID: "9001"
@@ -54,7 +54,7 @@ services:
     environment:
       PUID: "9001"
       PGID: "9001"
-      OPENBLOCKS_API_SERVICE_URL: "http://openblocks-api-service:8080"
+      OPENBLOCKS_API_SERVICE_URL: "http://openblocks-api-service:8082"
     restart: unless-stopped
     depends_on:
       - openblocks-api-service
@@ -66,11 +66,11 @@ services:
     image: openblocksdev/openblocks-ce-frontend:latest
     container_name: openblocks-frontend
     ports:
-      - "3000:3000"
+      - "3002:3002"
     environment:
       PUID: "9001"
       PGID: "9001"
-      OPENBLOCKS_API_SERVICE_URL: "http://openblocks-api-service:8080"
+      OPENBLOCKS_API_SERVICE_URL: "http://openblocks-api-service:8082"
       OPENBLOCKS_NODE_SERVICE_URL: "http://openblocks-node-service:6060"
     restart: unless-stopped
     depends_on:
