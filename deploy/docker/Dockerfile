@@ -56,7 +56,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends gosu \
 # Copy openblocks server configuration
 COPY --chown=openblocks:openblocks --from=build-api-service /openblocks/api-service /openblocks/api-service
 
-EXPOSE 8080
+EXPOSE 8082
 CMD [ "sh" , "/openblocks/api-service/entrypoint.sh" ]
 
 #############################################################################
@@ -150,7 +150,7 @@ RUN chmod +x /docker-entrypoint.d/00-change-nginx-user.sh && \
     chmod +x /docker-entrypoint.d/01-update-nginx-conf.sh
 
 COPY deploy/docker/frontend/nginx.conf /etc/nginx/nginx.conf
-EXPOSE 3000
+EXPOSE 3002
 
 #############################################################################
 
@@ -188,7 +188,7 @@ COPY --chown=openblocks:openblocks deploy/docker/all-in-one/etc /openblocks/etc
 # Add startup script
 COPY --chown=openblocks:openblocks deploy/docker/all-in-one/entrypoint.sh /openblocks/entrypoint.sh
 
-EXPOSE 3000
+EXPOSE 3002
 
 ENTRYPOINT [ "/bin/sh" , "/openblocks/entrypoint.sh" ]
 CMD ["/usr/bin/supervisord", "-n" , "-c" , "/openblocks/etc/supervisord.conf"]
